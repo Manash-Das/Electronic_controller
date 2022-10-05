@@ -2,8 +2,11 @@ package com.example.electronic_controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ public class RegisterPage extends AppCompatActivity {
     EditText emailInput,passwordInput,confirmPasswordInput;
     Button submitBtn;
     ProgressBar progressBar;
+    ImageView eye;
     EditText nameInput,phoneInput;
     String emailRegex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
     String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
@@ -41,6 +45,7 @@ public class RegisterPage extends AppCompatActivity {
         phoneInput = findViewById(R.id.phoneNumber);
         nameInput = findViewById(R.id.name);
         signIn = findViewById(R.id.signIn);
+        eye = findViewById(R.id.eye);
         submitBtn.setOnClickListener(view -> {
             if(checkCredential()){
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
@@ -69,6 +74,16 @@ public class RegisterPage extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(),SignIn.class);
             startActivity(intent);
             finish();
+        });
+        eye.setOnClickListener(view -> {
+            if(passwordInput.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
+                passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                confirmPasswordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+            }else{
+                passwordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                confirmPasswordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
         });
     }
     public boolean checkCredential(){
