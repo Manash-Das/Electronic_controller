@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "360903197068",
+    "firebase_url": "https://esp-firebase-demo-ce5e6-default-rtdb.firebaseio.com",
+    "project_id": "esp-firebase-demo-ce5e6",
+    "storage_bucket": "esp-firebase-demo-ce5e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360903197068:android:bc3535ac7ff4001c6516a9",
+        "android_client_info": {
+          "package_name": "com.example.electronic_controller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360903197068-spoag2ht73a9ett2909n9qs470oa0f83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAddjMEuPo4w1Wr9_x1z3FwyTnvAQSVZIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360903197068-spoag2ht73a9ett2909n9qs470oa0f83.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360903197068:android:1456496ec51329716516a9",
+        "android_client_info": {
+          "package_name": "com.example.electronicscontroller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360903197068-spoag2ht73a9ett2909n9qs470oa0f83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAddjMEuPo4w1Wr9_x1z3FwyTnvAQSVZIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360903197068-spoag2ht73a9ett2909n9qs470oa0f83.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
