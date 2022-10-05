@@ -60,8 +60,10 @@ public class SignIn extends AppCompatActivity {
         eye.setOnClickListener(view -> {
             if(passwordInput.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
                 passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                eye.setImageResource(R.drawable.lock);
             }else{
                 passwordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                eye.setImageResource(R.drawable.lock_open);
             }
         });
     }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,7 +28,7 @@ public class RegisterPage extends AppCompatActivity {
     EditText emailInput,passwordInput,confirmPasswordInput;
     Button submitBtn;
     ProgressBar progressBar;
-    ImageView eye;
+    ImageView passEye,confEye;
     EditText nameInput,phoneInput;
     String emailRegex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
     String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
@@ -45,9 +46,12 @@ public class RegisterPage extends AppCompatActivity {
         phoneInput = findViewById(R.id.phoneNumber);
         nameInput = findViewById(R.id.name);
         signIn = findViewById(R.id.signIn);
-        eye = findViewById(R.id.eye);
+        passEye = findViewById(R.id.passEye);
+        confEye = findViewById(R.id.confEye);
+
         submitBtn.setOnClickListener(view -> {
             if(checkCredential()){
+                progressBar.setVisibility(View.VISIBLE);
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         String currentFirebaseUser = FirebaseAuth.getInstance().getUid() ;
@@ -59,7 +63,6 @@ public class RegisterPage extends AppCompatActivity {
                         assert currentFirebaseUser != null;
                         reference.child(currentFirebaseUser).setValue(hashmap);
                         Intent intent = new Intent(getApplicationContext(),Homepage.class);
-//                            Toast.makeText(RegisterPage.this, currentFirebaseUser, Toast.LENGTH_LONG).show();
                         startActivity(intent);
                         finish();
 
@@ -75,14 +78,23 @@ public class RegisterPage extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-        eye.setOnClickListener(view -> {
+        passEye.setOnClickListener(view -> {
             if(passwordInput.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
                 passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                confirmPasswordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                passEye.setImageResource(R.drawable.lock);
 
             }else{
                 passwordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                passEye.setImageResource(R.drawable.lock_open);
+            }
+        });
+        confEye.setOnClickListener(view -> {
+            if(passwordInput.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
+                confirmPasswordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                confEye.setImageResource(R.drawable.lock);
+            }else{
                 confirmPasswordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                confEye.setImageResource(R.drawable.lock_open);
             }
         });
     }
