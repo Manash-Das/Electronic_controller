@@ -44,7 +44,8 @@
         android:layout_marginEnd="25dp"
         android:src="@drawable/person"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registerText" />
+        app:layout_constraintTop_toBottomOf="@id/registerText"
+        android:contentDescription="@string/name" />
 
     <EditText
         android:id="@+id/phoneNumber"
@@ -59,6 +60,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:importantForAutofill="no" />
     <ImageView
+        android:contentDescription="@string/phoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -80,6 +82,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:importantForAutofill="no" />
     <ImageView
+        android:contentDescription="@string/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -104,6 +107,7 @@
 
     <ImageView
         android:id="@+id/passEye"
+        android:contentDescription="@string/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColorHint="@color/black"
@@ -127,6 +131,7 @@
         android:importantForAutofill="no" />
     <ImageView
         android:id="@+id/confEye"
+        android:contentDescription="@string/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColorHint="@color/black"
@@ -167,7 +172,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         style="@style/TextAppearance.MaterialComponents.Caption"
-        android:text = "@string/common_signin_button_text"
+        android:text = "@string/signIn"
         app:layout_constraintTop_toBottomOf="@id/haveAccount"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginEnd="25dp"

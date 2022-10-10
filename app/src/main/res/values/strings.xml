@@ -3,14 +3,9 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="title_activity_sign_in">SignIn</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="hello_world">Hello World</string>
+    <string name="Welcome">WELCOME</string>
+<!--    <string name="hello"></string>-->
     <string name="push_me">Push Me</string>
     <string name="register">Register</string>
     <string name="enter_your_full_name">Enter your Full Name</string>
@@ -25,6 +20,12 @@
     <string name="enter_password">Enter Password</string>
     <string name="enter_email">Enter Email</string>
     <string name="sign_in">Sign In</string>
-    <string name="emailRegex">^[a–zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$</string>
-    <string name="passwordRegex"><![CDATA[^(?=.*[0–9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$]]></string>
+    <string name="name">Name</string>
+    <string name="phoneNumber">Phone</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="signIn">SignIn</string>
+    <string name="status">status</string>
+    <string name="buttonOn">ON</string>
+    <string name="ButtonOff">OFF</string>
 </resources>

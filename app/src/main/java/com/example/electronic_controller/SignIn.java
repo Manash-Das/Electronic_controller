@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,16 +17,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 
 public class SignIn extends AppCompatActivity {
     EditText emailInput,passwordInput;
     TextView signUp;
     Button submit;
     ImageView eye;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String email,password;
     String emailRegex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
     String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
+    ProgressBar progressBar;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,16 +39,15 @@ public class SignIn extends AppCompatActivity {
         signUp = findViewById(R.id.signup);
         submit = findViewById(R.id.submit);
         eye = findViewById(R.id.eye);
+        progressBar = findViewById(R.id.progress);
         signUp.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(),RegisterPage.class);
             startActivity(intent);
             finish();
         });
         submit.setOnClickListener(view -> {
-            Toast.makeText(SignIn.this, "Completed", Toast.LENGTH_SHORT).show();
-            email = emailInput.getText().toString();
-            password = passwordInput.getText().toString();
             if(checkCredential()) {
+                progressBar.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(SignIn.this, "Successfully login", Toast.LENGTH_SHORT).show();
@@ -52,7 +55,7 @@ public class SignIn extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Userid or password is invalid", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

@@ -1,11 +1,13 @@
 package com.example.electronic_controller;
 
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,34 +24,46 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Homepage extends AppCompatActivity {
-    TextView name;
+    TextView name,change;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     Button pushBtn;
-    String data;
+    String data = "1";
+    ImageView status;
+    ProgressBar progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         name = findViewById(R.id.Name);
         pushBtn = findViewById(R.id.pushMe);
+        progress = findViewById(R.id.progress);
+        change = findViewById(R.id.change);
+        status = findViewById(R.id.button_status);
+        Vibrator vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         DatabaseReference firebaseReference = firebaseDatabase.getReference("UsersData");
         String currentFirebaseUser = FirebaseAuth.getInstance().getUid() ;
-        Toast.makeText(getApplicationContext(), currentFirebaseUser, Toast.LENGTH_SHORT).show();
         assert currentFirebaseUser != null;
         firebaseReference.child(currentFirebaseUser).addListenerForSingleValueEvent(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    Toast.makeText(Homepage.this, String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
-
                     Map<String,Object>map = (Map<String,Object>)snapshot.getValue();
                     assert map != null;
                     String id = Objects.requireNonNull(map.get("Name")).toString();
-                    Toast.makeText(Homepage.this, id, Toast.LENGTH_SHORT).show();
-                    String phone = Objects.requireNonNull(map.get("Phone")).toString();
+                    name.setText(id);
                     data = Objects.requireNonNull(map.get("Button")).toString();
-                    name.setText(id+"\n\n"+phone);
+
+                    if(data.equals("1")){
+                        change.setText(R.string.buttonOn);
+                        status.setImageResource(R.drawable.on);
+
+                    }
+                    else if(data.equals("0")){
+                        change.setText(R.string.ButtonOff);
+                        status.setImageResource(R.drawable.off);
+                    }
                 }
             }
 
@@ -60,13 +74,19 @@ public class Homepage extends AppCompatActivity {
         });
         pushBtn.setOnClickListener(view -> {
             HashMap<String, Object> hashmap = new HashMap<>();
+            vb.vibrate(100);
             if(Objects.equals(data, "1")){
+
                 hashmap.put("Button","0");
                 data = "0";
+                change.setText(R.string.ButtonOff);
+                status.setImageResource(R.drawable.off);
             }
             else{
                 hashmap.put("Button","1");
                 data ="1";
+                change.setText(R.string.buttonOn);
+                status.setImageResource(R.drawable.on);
             }
             firebaseReference.child(currentFirebaseUser).updateChildren(hashmap);
 
