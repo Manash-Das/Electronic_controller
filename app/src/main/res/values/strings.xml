@@ -28,4 +28,6 @@
     <string name="status">status</string>
     <string name="buttonOn">ON</string>
     <string name="ButtonOff">OFF</string>
+    <string name="remember_me">Remember me</string>
+    <string name="logoutBtn">logoutBtn</string>
 </resources>

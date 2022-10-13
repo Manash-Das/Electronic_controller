@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".Homepage">
 
+
+    <ImageView
+        android:id="@+id/logoutBtn"
+        android:layout_width="32dp"
+        android:layout_height="36dp"
+        android:layout_margin="20dp"
+        android:contentDescription="@string/logoutBtn"
+        android:src="@drawable/logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/Hello"
         android:layout_width="0dp"
@@ -16,14 +27,13 @@
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/Name"
         android:layout_width="0dp"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/Hello"
         android:layout_marginVertical="20dp"

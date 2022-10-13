@@ -2,8 +2,11 @@ package com.example.electronic_controller;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -28,9 +31,9 @@ public class Homepage extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     Button pushBtn;
     String data = "1";
-    ImageView status;
+    ImageView status,logoutBtn;
     ProgressBar progress;
-
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,8 @@ public class Homepage extends AppCompatActivity {
         progress = findViewById(R.id.progress);
         change = findViewById(R.id.change);
         status = findViewById(R.id.button_status);
+        logoutBtn = findViewById(R.id.logoutBtn);
+        sp = getSharedPreferences("loginPage",MODE_PRIVATE);
         Vibrator vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         DatabaseReference firebaseReference = firebaseDatabase.getReference("UsersData");
@@ -90,6 +95,11 @@ public class Homepage extends AppCompatActivity {
             }
             firebaseReference.child(currentFirebaseUser).updateChildren(hashmap);
 
+        });
+        logoutBtn.setOnClickListener(view -> {
+            sp.edit().putBoolean("login",false).apply();
+            startActivity(new Intent(getApplicationContext(), SignIn.class));
+            finish();
         });
     }
 }
