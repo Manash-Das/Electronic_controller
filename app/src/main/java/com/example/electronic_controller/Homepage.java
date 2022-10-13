@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -34,6 +33,9 @@ public class Homepage extends AppCompatActivity {
     ImageView status,logoutBtn;
     ProgressBar progress;
     SharedPreferences sp;
+    DatabaseReference firebaseReference;
+    String currentFirebaseUser;
+    Vibrator vb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +46,17 @@ public class Homepage extends AppCompatActivity {
         change = findViewById(R.id.change);
         status = findViewById(R.id.button_status);
         logoutBtn = findViewById(R.id.logoutBtn);
+        vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sp = getSharedPreferences("loginPage",MODE_PRIVATE);
-        Vibrator vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-        DatabaseReference firebaseReference = firebaseDatabase.getReference("UsersData");
-        String currentFirebaseUser = FirebaseAuth.getInstance().getUid() ;
+        firebaseReference = firebaseDatabase.getReference("UsersData");
+        currentFirebaseUser = FirebaseAuth.getInstance().getUid() ;
         assert currentFirebaseUser != null;
+        updateText();
+        pushBtn.setOnClickListener(view -> pushBtnClicked());
+        logoutBtn.setOnClickListener(view -> logoutBtnClicked());
+    }
+
+    private void updateText() {
         firebaseReference.child(currentFirebaseUser).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -77,29 +84,30 @@ public class Homepage extends AppCompatActivity {
 
             }
         });
-        pushBtn.setOnClickListener(view -> {
-            HashMap<String, Object> hashmap = new HashMap<>();
-            vb.vibrate(100);
-            if(Objects.equals(data, "1")){
+    }
 
-                hashmap.put("Button","0");
-                data = "0";
-                change.setText(R.string.ButtonOff);
-                status.setImageResource(R.drawable.off);
-            }
-            else{
-                hashmap.put("Button","1");
-                data ="1";
-                change.setText(R.string.buttonOn);
-                status.setImageResource(R.drawable.on);
-            }
-            firebaseReference.child(currentFirebaseUser).updateChildren(hashmap);
+    private void logoutBtnClicked() {
+        sp.edit().putBoolean("login",false).apply();
+        startActivity(new Intent(getApplicationContext(), SignIn.class));
+        finish();
+    }
 
-        });
-        logoutBtn.setOnClickListener(view -> {
-            sp.edit().putBoolean("login",false).apply();
-            startActivity(new Intent(getApplicationContext(), SignIn.class));
-            finish();
-        });
+    private void pushBtnClicked() {
+        HashMap<String, Object> hashmap = new HashMap<>();
+        vb.vibrate(100);
+        if(Objects.equals(data, "1")){
+
+            hashmap.put("Button","0");
+            data = "0";
+            change.setText(R.string.ButtonOff);
+            status.setImageResource(R.drawable.off);
+        }
+        else{
+            hashmap.put("Button","1");
+            data ="1";
+            change.setText(R.string.buttonOn);
+            status.setImageResource(R.drawable.on);
+        }
+        firebaseReference.child(currentFirebaseUser).updateChildren(hashmap);
     }
 }

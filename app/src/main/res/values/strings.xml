@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Electronic_controller</string>
+    <string name="app_name">Māyika</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="title_activity_sign_in">SignIn</string>
     <!-- Strings used for fragments for navigation -->
